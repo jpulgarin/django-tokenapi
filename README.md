@@ -41,6 +41,9 @@ You can change the number of days that a token is valid for by setting
 Usage
 -----
 
+Client Usage
+------------
+
 ### Obtaining a Token
 
 You can obtain a token for a specific user by sending a POST request with a
@@ -55,6 +58,10 @@ If the request is successful, you will receive a JSON response like so:
 
     {"success": true, "token": "2uy-420a8efff7f882afc20d", "user": 1}
 
+An invalid username and password pair will produce a response like so:
+
+    {"success": false, "errors": "Unable to log you in, please try again"}
+
 You should store the user and token on the client accessing the API, 
 as all subsequent calls will require that the request have a valid token 
 and user pair.
@@ -63,7 +70,28 @@ and user pair.
 
 You can verify that a token matches a given user by
 
-    
+### Writing API Compatible Views
+
+To allow a view to be accessed through token-based auth, use the 
+`django_api.decorators.token_required` decorator. There are also 
+JSON helper functions to make it easier to deal with JSON. 
+This is an example of an API compatible view:
+
+    from django_api.decorators import token_required, JSONResponse, JSONError
+
+    @token_required
+    def index(request):
+        if request.method == 'POST':
+            data = {
+                'success': True,
+                'test1': 49,
+                'test2': 'awesome',
+            }
+            return JSONResponse(data)
+        else:
+            return JSONError("Only POST is allowed")
+
+
 
 
 
