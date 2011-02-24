@@ -30,10 +30,13 @@ Add `django_api.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 Configuration
 -------------
 
+You can change the number of days that a token is valid for by setting 
+`TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
+
 Acknowledgements
 ----------------
 
-The token generating code is from django.contrib.auth.tokens, but modified so
+The token generating code is from `django.contrib.auth.tokens`, but modified so
 that it does not hash on a user's last login.
 
 
