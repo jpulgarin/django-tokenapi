@@ -1,8 +1,9 @@
 django-api
 ================
 
-
-
+This is a Django application which provides all you need to create a
+[REST API][http://en.wikipedia.org/wiki/Representational_State_Transfer]
+that uses token-based authentication.
 
 Installation
 ------------
