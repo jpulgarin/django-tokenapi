@@ -9,7 +9,7 @@ class TokenBackend(ModelBackend):
             user = User.objects.get(pk=pk)
         except User.DoesNotExist:
             return None
-        if default_token_generator.check_token(user, 
+        if token_generator.check_token(user, 
             token): 
             return user
         return None

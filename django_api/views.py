@@ -41,7 +41,6 @@ def token_new(request):
                     'success': True,
                     'token': token_generator.make_token(user),
                     'user': user.pk,
-                    'username': user.username,
                 }
                 return JSONResponse(data)
             else:
