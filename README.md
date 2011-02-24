@@ -61,9 +61,9 @@ An invalid username and password pair will produce a response like so:
 
     {"success": false, "errors": "Unable to log you in, please try again"}
 
-You should store the user and token on the client accessing the API, 
-as all subsequent calls will require that the request have a valid token 
-and user pair.
+You should store the `user` and `token` that are returned on the client 
+accessing the API, as all subsequent calls will require that the request have 
+a valid token and user pair.
 
 ### Verifying a Token
 
