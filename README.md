@@ -1,22 +1,22 @@
-django-api
+django-simpleapi
 ================
 
-This is a Django application which provides all you need to create a
-[REST API](http://en.wikipedia.org/wiki/Representational_State_Transfer)
-that uses token-based authentication.
+This is a Django application which allows you to create simple APIs
+that use token-based authentication. You can easily open up existing views
+to the API by adding a single decorator.
 
 This is useful if you want to create applications on mobile devices which
 connect to your Django website, but where only your clients are expected to
 access the API.
 
 If instead you are looking to open up an API to the public, you are better off
-going with [OAuth](http://oauth.net/) of which there exist some really good 
-Python [implementations](https://github.com/simplegeo/python-oauth2).
+going with a framework with OAuth support, of which there exist some really
+good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 
 Installation
 ------------
 
-Obtain django_api package and place it somewhere on your PYTHONPATH, for example
+First obtain simpleapi package and place it somewhere on your PYTHONPATH, for example
 in your project directory (where settings.py is). 
 
 Alternatively, if you are 
@@ -27,28 +27,26 @@ regular installation or use [pip][]:
 
     # or ...
 
-    pip install -e git://github.com/jpulgarin/django-api.git#egg=django-api
+    pip install -e git://github.com/jpulgarin/django-simpleapi.git#egg=django-simpleapi
 
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
 [pip]: http://pip.openplans.org/
 
-Add `django_api` to your `INSTALLED_APPS`.
+Add `simpleapi` to your `INSTALLED_APPS`.
 
-Add `django_api.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
+Add `simpleapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 
-Include `django_api.urls` in your `urls.py`. It will look something like this:
+Include `simpleapi.urls` in your `urls.py`. It will look something like this:
 
     urlpatterns = patterns('',
-        (r'', include('django_api.urls')),
+        (r'', include('simpleapi.urls')),
     )
-
 
 Configuration
 -------------
 
 You can change the number of days that a token is valid for by setting 
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
-
 
 Usage
 -----
@@ -90,12 +88,12 @@ If valid, you will receive the following JSON response:
 ### Writing API Compatible Views
 
 To allow a view to be accessed through token-based auth, use the 
-`django_api.decorators.token_required` decorator. There are also 
+`simpleapi.decorators.token_required` decorator. There are also 
 JSON helper functions to make it easier to deal with JSON. 
 This is an example of an API compatible view:
 
-    from django_api.decorators import token_required
-    from django_api.views import JSONResponse, JSONError
+    from simpleapi.decorators import token_required
+    from simpleapi.views import JSONResponse, JSONError
 
     @token_required
     def index(request):
@@ -121,11 +119,8 @@ You would receive the following response:
 
     {"success": true, "test1": 49, "test2": "awesome"}
 
-
 Acknowledgements
 ----------------
 
 The token generating code is from `django.contrib.auth.tokens`, but modified so
 that it does not hash on a user's last login.
-
-
