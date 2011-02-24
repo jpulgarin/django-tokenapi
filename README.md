@@ -95,7 +95,7 @@ JSON helper functions to make it easier to deal with JSON.
 This is an example of an API compatible view:
 
     from django_api.decorators import token_required
-    from django api.views import JSONResponse, JSONError
+    from django_api.views import JSONResponse, JSONError
 
     @token_required
     def index(request):
