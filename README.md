@@ -55,6 +55,10 @@ If the request is successful, you will receive a JSON response like so:
 
     {"success": true, "token": "2uy-420a8efff7f882afc20d", "user": 1}
 
+You should store the user and token on the client accessing the API, 
+as all subsequent calls will require that the request have a valid token 
+and user pair.
+
 ### Verifying a Token
 
 You can verify that a token matches a given user by
