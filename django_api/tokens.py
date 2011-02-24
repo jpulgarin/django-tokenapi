@@ -1,4 +1,4 @@
-# Edited django.contrib.auth.tokens to not hash on last login
+# django.contrib.auth.tokens, but without using last_login in hash
 
 from datetime import date
 from django.conf import settings
@@ -6,19 +6,20 @@ from django.utils.http import int_to_base36, base36_to_int
 
 class TokenGenerator(object):
     """
-    Strategy object used to generate and check tokens for the password
-    reset mechanism.
+    Strategy object used to generate and check tokens
     """
+
+    TOKEN_TIMEOUT_DAYS = getattr(settings, "TOKEN_TIMEOUT_DAYS", 7)
+
     def make_token(self, user):
         """
-        Returns a token that can be used once to do a password reset
-        for the given user.
+        Returns a token for a given user
         """
         return self._make_token_with_timestamp(user, self._num_days(self._today()))
 
     def check_token(self, user, token):
         """
-        Check that a password reset token is correct for a given user.
+        Check that a token is correct for a given user.
         """
         # Parse the token
         try:
@@ -36,7 +37,7 @@ class TokenGenerator(object):
             return False
 
         # Check the timestamp is within limit
-        if (self._num_days(self._today()) - ts) > settings.PASSWORD_RESET_TIMEOUT_DAYS:
+        if (self._num_days(self._today()) - ts) > TOKEN_TIMEOUT_DAYS:
             return False
 
         return True
@@ -56,8 +57,5 @@ class TokenGenerator(object):
     def _num_days(self, dt):
         return (dt - date(2001,1,1)).days
 
-    def _today(self):
-        # Used for mocking in tests
-        return date.today()
 
 token_generator = TokenGenerator()

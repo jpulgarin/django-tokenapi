@@ -5,7 +5,7 @@ django-api
 
 
 Installation
-----------------------
+------------
 
 Obtain django_api package and place it somewhere on your PYTHONPATH, for example
 in your project directory (where settings.py is). 
@@ -24,4 +24,16 @@ regular installation or use [pip][]:
 
 Add `django_api` to your `INSTALLED_APPS`.
 
-Add `django_api.backends.TokenBackends` to your `AUTHENTICATION_BACKENDS`
+Add `django_api.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
+
+
+Configuration
+-------------
+
+Acknowledgements
+----------------
+
+The token generating code is from django.contrib.auth.tokens, but modified so
+that it does not hash on a user's last login.
+
+
