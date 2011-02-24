@@ -26,12 +26,24 @@ Add `django_api` to your `INSTALLED_APPS`.
 
 Add `django_api.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 
+Include `django_api.urls` in your `urls.py`. It will look something like this:
+
+    urlpatterns = patterns('',
+        (r'', include('django_api.urls')),
+    )
+
+
 
 Configuration
 -------------
 
 You can change the number of days that a token is valid for by setting 
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
+
+Usage
+-----
+
+You can obtain a token for a specific user by sending a POST request t
 
 Acknowledgements
 ----------------
