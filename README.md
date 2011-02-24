@@ -5,6 +5,14 @@ This is a Django application which provides all you need to create a
 [REST API](http://en.wikipedia.org/wiki/Representational_State_Transfer)
 that uses token-based authentication.
 
+This is useful if you want to create applications on mobile devices which
+connect to your Django website, but where only your clients are expected to
+access the API.
+
+If instead you are looking to open up an API to the public, you are better off
+going with [OAuth](http://oauth.net/) of which there exist some really good 
+Django [implementations](https://github.com/simplegeo/python-oauth2).
+
 Installation
 ------------
 
