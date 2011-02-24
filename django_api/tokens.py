@@ -57,5 +57,9 @@ class TokenGenerator(object):
     def _num_days(self, dt):
         return (dt - date(2001,1,1)).days
 
+    def _today(self):
+        # Used for mocking in tests
+        return date.today()
+
 
 token_generator = TokenGenerator()
