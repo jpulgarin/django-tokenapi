@@ -12,5 +12,5 @@ setup(
     author='Julian Pulgarin',
     author_email='jp@julianpulgarin.com',
     url='https://github.com/jpulgarin/django-api',
-    packages=['api'],
+    packages=['django_api'],
 )

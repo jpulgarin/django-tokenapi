@@ -7,7 +7,7 @@ try:
 except ImportError: 
     import json
 
-from api.tokens import token_generator
+from django_api.tokens import token_generator
 
 
 # JSON helper functions
