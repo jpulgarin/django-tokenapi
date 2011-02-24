@@ -45,9 +45,11 @@ Usage
 
 You can obtain a token for a specific user by sending a POST request with a
 username and token parameter to the `token_new` view. 
-Using curl, the request would look like:
+Using [curl][], the request would look like:
 
     curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json 
+
+[curl]: http://curl.haxx.se/
 
 If the request is successful, you will receive a JSON response like so:
 
