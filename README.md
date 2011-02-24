@@ -46,7 +46,7 @@ Usage
 ### Obtaining a Token
 
 You can obtain a token for a specific user by sending a POST request with a
-username and token parameter to the `token_new` view. 
+username and token parameter to the `api_token_new` view. 
 Using [curl][], the request would look like:
 
     curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json 
@@ -67,7 +67,12 @@ a valid token and user pair.
 
 ### Verifying a Token
 
-You can verify that a token matches a given user by
+You can verify that a token matches a given user by sending a request
+to the `api_token` view, and sending the token and user as part of the URL. 
+Using curl it would look like this:
+
+
+
 
 ### Writing API Compatible Views
 
@@ -76,7 +81,8 @@ To allow a view to be accessed through token-based auth, use the
 JSON helper functions to make it easier to deal with JSON. 
 This is an example of an API compatible view:
 
-    from django_api.decorators import token_required, JSONResponse, JSONError
+    from django_api.decorators import token_required
+    from django api.views import JSONResponse, JSONError
 
     @token_required
     def index(request):
@@ -89,9 +95,6 @@ This is an example of an API compatible view:
             return JSONResponse(data)
         else:
             return JSONError("Only POST is allowed")
-
-
-
 
 
 Acknowledgements
