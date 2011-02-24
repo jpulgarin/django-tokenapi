@@ -106,7 +106,7 @@ The client can access any API compatible view by sending a request to it,
 and including `user` and `token` as request parameters (either GET or POST).
 Accessing the example view above using curl might look like:
 
-   curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json
+    curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/index.json
 
 You would receive the following response:
 
