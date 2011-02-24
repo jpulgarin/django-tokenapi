@@ -67,12 +67,15 @@ a valid token and user pair.
 
 ### Verifying a Token
 
-You can verify that a token matches a given user by sending a request
+You can verify that a token matches a given user by sending a GET request
 to the `api_token` view, and sending the token and user as part of the URL. 
-Using curl it would look like this:
+Using curl it would look like:
 
+   curl http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json 
 
+If valid, you will receive the following JSON response:
 
+    {"success": true}
 
 ### Writing API Compatible Views
 
@@ -95,6 +98,18 @@ This is an example of an API compatible view:
             return JSONResponse(data)
         else:
             return JSONError("Only POST is allowed")
+
+### Using a Token
+
+The client can access any API compatible view by sending a request to it, 
+and including `user` and `token` as request parameters (either GET or POST).
+Accessing the example view above using curl might look like:
+
+   curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json
+
+You would receive the following response:
+
+    {"success": true, "test1": 49, "test2": "awesome"}
 
 
 Acknowledgements
