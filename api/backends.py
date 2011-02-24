@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend
-from api.tokens import default_token_generator
+from api.tokens import token_generator
+
 
 class TokenBackend(ModelBackend):
     def authenticate(self, pk, token):
