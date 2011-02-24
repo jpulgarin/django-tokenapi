@@ -72,7 +72,7 @@ You can verify that a token matches a given user by sending a GET request
 to the `api_token` view, and sending the token and user as part of the URL. 
 Using curl it would look like:
 
-   curl http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json 
+    curl http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json 
 
 If valid, you will receive the following JSON response:
 
