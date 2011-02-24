@@ -32,17 +32,16 @@ Include `django_api.urls` in your `urls.py`. It will look something like this:
         (r'', include('django_api.urls')),
     )
 
+
 Configuration
 -------------
 
 You can change the number of days that a token is valid for by setting 
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
 
+
 Usage
 -----
-
-Client Usage
-------------
 
 ### Obtaining a Token
 
