@@ -32,8 +32,6 @@ Include `django_api.urls` in your `urls.py`. It will look something like this:
         (r'', include('django_api.urls')),
     )
 
-
-
 Configuration
 -------------
 
@@ -43,7 +41,18 @@ You can change the number of days that a token is valid for by setting
 Usage
 -----
 
-You can obtain a token for a specific user by sending a POST request t
+You can obtain a token for a specific user by sending a POST request with a
+username and token parameter. Using curl, the request would look like:
+
+    curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json 
+
+If the request is successful, you will receive a JSON response like so:
+
+    {"success": true, "token": "2uy-420a8efff7f882afc20d", "user": 1}
+
+    
+
+
 
 Acknowledgements
 ----------------
