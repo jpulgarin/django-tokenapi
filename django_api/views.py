@@ -56,10 +56,10 @@ def token_new(request):
                 password=request.POST['password'])
             if user:
                 data = {
-                    'success' = True,
-                    'token' = token_generator.make_token(user),
-                    'user' = user.pk,
-                    'username' = user.username,
+                    'success': True,
+                    'token': token_generator.make_token(user),
+                    'user': user.pk,
+                    'username': user.username,
                 }
                 return JSONResponse(data)
             else:
