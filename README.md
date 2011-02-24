@@ -41,6 +41,8 @@ You can change the number of days that a token is valid for by setting
 Usage
 -----
 
+### Obtaining a Token
+
 You can obtain a token for a specific user by sending a POST request with a
 username and token parameter. Using curl, the request would look like:
 
