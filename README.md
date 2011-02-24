@@ -23,3 +23,5 @@ regular installation or use [pip][]:
 [pip]: http://pip.openplans.org/
 
 Add `django_api` to your `INSTALLED_APPS`.
+
+Add `django_api.backends.TokenBackends` to your `AUTHENTICATION_BACKENDS`
