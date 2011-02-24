@@ -11,7 +11,7 @@ access the API.
 
 If instead you are looking to open up an API to the public, you are better off
 going with [OAuth](http://oauth.net/) of which there exist some really good 
-Django [implementations](https://github.com/simplegeo/python-oauth2).
+Python [implementations](https://github.com/simplegeo/python-oauth2).
 
 Installation
 ------------
