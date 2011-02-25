@@ -8,7 +8,7 @@ try:
 except ImportError: 
     import json
 
-from simpleapi.tokens import token_generator
+from tokenapi.tokens import token_generator
 
 
 # JSON helper functions

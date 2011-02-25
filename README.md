@@ -1,4 +1,4 @@
-django-simpleapi
+django-tokenapi
 ================
 
 This is a Django application which allows you to create simple APIs
@@ -16,7 +16,7 @@ good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 Installation
 ------------
 
-First obtain simpleapi package and place it somewhere on your PYTHONPATH, for example
+First obtain tokenapi package and place it somewhere on your PYTHONPATH, for example
 in your project directory (where settings.py is). 
 
 Alternatively, if you are 
@@ -27,19 +27,19 @@ regular installation or use [pip][]:
 
     # or ...
 
-    pip install -e git://github.com/jpulgarin/django-simpleapi.git#egg=django-simpleapi
+    pip install -e git://github.com/jpulgarin/django-tokenapi.git#egg=django-tokenapi
 
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
 [pip]: http://pip.openplans.org/
 
-Add `simpleapi` to your `INSTALLED_APPS`.
+Add `tokenapi` to your `INSTALLED_APPS`.
 
-Add `simpleapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
+Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 
-Include `simpleapi.urls` in your `urls.py`. It will look something like this:
+Include `tokenapi.urls` in your `urls.py`. It will look something like this:
 
     urlpatterns = patterns('',
-        (r'', include('simpleapi.urls')),
+        (r'', include('tokenapi.urls')),
     )
 
 Configuration
@@ -88,12 +88,12 @@ If valid, you will receive the following JSON response:
 ### Writing API Compatible Views
 
 To allow a view to be accessed through token-based auth, use the 
-`simpleapi.decorators.token_required` decorator. There are also 
+`tokenapi.decorators.token_required` decorator. There are also 
 JSON helper functions to make it easier to deal with JSON. 
 This is an example of an API compatible view:
 
-    from simpleapi.decorators import token_required
-    from simpleapi.views import JSONResponse, JSONError
+    from tokenapi.decorators import token_required
+    from tokenapi.views import JSONResponse, JSONError
 
     @token_required
     def index(request):
