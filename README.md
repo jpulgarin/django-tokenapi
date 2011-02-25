@@ -16,7 +16,7 @@ good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 Installation
 ------------
 
-First obtain tokenapi package and place it somewhere on your PYTHONPATH, for example
+First obtain `tokenapi` package and place it somewhere on your PYTHONPATH, for example
 in your project directory (where settings.py is). 
 
 Alternatively, if you are 
