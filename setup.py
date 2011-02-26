@@ -13,4 +13,5 @@ setup(
     author_email='jp@julianpulgarin.com',
     url='https://github.com/jpulgarin/django-tokenapi',
     packages=['tokenapi'],
+    license='Apache License, Version 2.0',
 )

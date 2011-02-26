@@ -93,7 +93,7 @@ JSON helper functions to make it easier to deal with JSON.
 This is an example of an API compatible view:
 
     from tokenapi.decorators import token_required
-    from tokenapi.views import JSONResponse, JSONError
+    from tokenapi.http import JSONResponse, JSONError
 
     @token_required
     def index(request):

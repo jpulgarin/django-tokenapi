@@ -9,21 +9,8 @@ except ImportError:
     import json
 
 from tokenapi.tokens import token_generator
+from tokenapi.http import JSONResponse, JSONError
 
-
-# JSON helper functions
-def JSONResponse(data, dump=True):
-    return HttpResponse(
-        json.dumps(data) if dump else data,
-        mimetype='application/json',
-    )
-
-def JSONError(error_string):
-    data = {
-        'success': False,
-        'errors': error_string,
-    }
-    return JSONResponse(data)
 
 
 # Creates a token if the correct username and password is given
