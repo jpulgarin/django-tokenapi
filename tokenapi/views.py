@@ -1,17 +1,9 @@
-from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
-try: 
-    import simplejson as json
-except ImportError: 
-    import json
-
 from tokenapi.tokens import token_generator
 from tokenapi.http import JSONResponse, JSONError
-
-
 
 # Creates a token if the correct username and password is given
 # token/new.json

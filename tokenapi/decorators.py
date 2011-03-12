@@ -7,7 +7,6 @@ try:
 except ImportError:
     from django.utils.functional import wraps # Python 2.4 fallback
 
-
 # Decorator which ensures the user has provided
 # a correct user and token pair
 def token_required(view_func):
