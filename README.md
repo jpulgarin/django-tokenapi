@@ -99,7 +99,6 @@ This is an example of an API compatible view:
     def index(request):
         if request.method == 'POST':
             data = {
-                'success': True,
                 'test1': 49,
                 'test2': 'awesome',
             }

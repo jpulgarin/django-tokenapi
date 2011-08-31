@@ -8,6 +8,13 @@ except ImportError:
 # JSON helper functions
 
 def JSONResponse(data, dump=True):
+	try:
+		data['errors']
+	except KeyError:
+		data['success'] = True
+	except TypeError:
+		pass
+
     return HttpResponse(
         json.dumps(data) if dump else data,
         mimetype='application/json',
