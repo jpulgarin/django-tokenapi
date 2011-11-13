@@ -1,11 +1,10 @@
 """JSON helper functions"""
-
-from django.http import HttpResponse
-
 try:
     import simplejson as json
 except ImportError:
     import json
+
+from django.http import HttpResponse
 
 
 def JSONResponse(data, dump=True):
