@@ -12,9 +12,12 @@ from tokenapi.http import JSONResponse, JSONError
 @csrf_exempt
 def token_new(request):
     if request.method == 'POST':
-        if 'username' in request.POST and 'password' in request.POST:
-            user = authenticate(username=request.POST['username'], 
-                password=request.POST['password'])
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+
             if user:
                 data = {
                     'token': token_generator.make_token(user),
@@ -23,6 +26,8 @@ def token_new(request):
                 return JSONResponse(data)
             else:
                 return JSONError("Unable to log you in, please try again.")
+        else:
+            return JSONError("Must include 'username' and 'password' as POST parameters.")
     else:
         return JSONError("Must access via a POST request.")
 
@@ -32,12 +37,13 @@ def token_new(request):
 # Returns: success
 def token(request, token, user):
     data = {}
+
     try:
         user = User.objects.get(pk=user)
     except User.DoesNotExist:
         return JSONError("User does not exist.")
-    if token_generator.check_token(user, 
-        token): 
+
+    if token_generator.check_token(user, token): 
         return JSONResponse({})
     else:
         return JSONError("Token did not match user.")

@@ -1,3 +1,5 @@
+"""JSON helper functions"""
+
 from django.http import HttpResponse
 
 try:
@@ -5,7 +7,6 @@ try:
 except ImportError:
     import json
 
-# JSON helper functions
 
 def JSONResponse(data, dump=True):
     try:

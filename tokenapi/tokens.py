@@ -1,4 +1,4 @@
-# django.contrib.auth.tokens, but without using last_login in hash
+"""django.contrib.auth.tokens, but without using last_login in hash"""
 
 from datetime import date
 from django.conf import settings
