@@ -17,6 +17,9 @@ def token_new(request):
 
         if username and password:
             user = authenticate(username=username, password=password)
+            
+            if not user.is_active:
+                return JSONError("User account is disabled.")
 
             if user:
                 data = {
@@ -42,6 +45,9 @@ def token(request, token, user):
         user = User.objects.get(pk=user)
     except User.DoesNotExist:
         return JSONError("User does not exist.")
+        
+    if not user.is_active:
+        return JSONError("User account is disabled.")
 
     if token_generator.check_token(user, token): 
         return JSONResponse({})
