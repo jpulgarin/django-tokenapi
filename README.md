@@ -48,6 +48,8 @@ Configuration
 You can change the number of days that a token is valid for by setting 
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
 
+By default, the authentication logic will not check if the user's `is_active` flag is set to `True`. To only allow active users to authenticate set `TOKEN_CHECK_ACTIVE_USER` to `True` in `settings.py`.
+
 Usage
 -----
 
