@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from tokenapi.tokens import token_generator
 from tokenapi.http import JSONResponse, JSONError
@@ -19,8 +20,9 @@ def token_new(request):
             user = authenticate(username=username, password=password)
 
             if user:
+                TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
                 
-                if not user.is_active:
+                if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
                     return JSONError("User account is disabled.")
                     
                 data = {
@@ -47,7 +49,9 @@ def token(request, token, user):
     except User.DoesNotExist:
         return JSONError("User does not exist.")
         
-    if not user.is_active:
+    TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
+    
+    if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
         return JSONError("User account is disabled.")
 
     if token_generator.check_token(user, token): 
