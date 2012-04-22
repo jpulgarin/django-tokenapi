@@ -17,11 +17,12 @@ def token_new(request):
 
         if username and password:
             user = authenticate(username=username, password=password)
-            
-            if not user.is_active:
-                return JSONError("User account is disabled.")
 
             if user:
+                
+                if not user.is_active:
+                    return JSONError("User account is disabled.")
+                    
                 data = {
                     'token': token_generator.make_token(user),
                     'user': user.pk,
