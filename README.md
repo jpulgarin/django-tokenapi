@@ -56,7 +56,7 @@ Usage
 ### Obtaining a Token
 
 You can obtain a token for a specific user by sending a POST request with a
-username and token parameter to the `api_token_new` view. 
+username and password parameter to the `api_token_new` view. 
 Using [curl][], the request would look like:
 
     curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json 
