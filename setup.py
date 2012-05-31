@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='django-tokenapi',
-    version='0.1.4',
+    version='0.1.5',
     description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
     author='Julian Pulgarin',
