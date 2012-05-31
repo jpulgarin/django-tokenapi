@@ -17,17 +17,17 @@ Installation
 ------------
 
 First obtain `tokenapi` package and place it somewhere on your PYTHONPATH, for example
-in your project directory (where settings.py is). 
+in your project directory (where settings.py is).
 
-Alternatively, if you are 
-using some sort of virtual environment, like [virtualenv][], you can perform a 
+Alternatively, if you are
+using some sort of virtual environment, like [virtualenv][], you can perform a
 regular installation or use [pip][]:
-    
+
     python setup.py install
 
     # or ...
 
-    pip install -e git://github.com/jpulgarin/django-tokenapi.git#egg=django-tokenapi
+    pip install django-tokenapi
 
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
 [pip]: http://pip.openplans.org/
