@@ -9,7 +9,7 @@ from tokenapi.http import JSONResponse, JSONError
 # Creates a token if the correct username and password is given
 # token/new.json
 # Required: username&password
-# Returns: success&token&user&username
+# Returns: success&token&user
 @csrf_exempt
 def token_new(request):
     if request.method == 'POST':
@@ -21,10 +21,10 @@ def token_new(request):
 
             if user:
                 TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
-                
+
                 if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
                     return JSONError("User account is disabled.")
-                    
+
                 data = {
                     'token': token_generator.make_token(user),
                     'user': user.pk,
@@ -42,19 +42,17 @@ def token_new(request):
 # Required: user
 # Returns: success
 def token(request, token, user):
-    data = {}
-
     try:
         user = User.objects.get(pk=user)
     except User.DoesNotExist:
         return JSONError("User does not exist.")
-        
+
     TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
-    
+
     if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
         return JSONError("User account is disabled.")
 
-    if token_generator.check_token(user, token): 
+    if token_generator.check_token(user, token):
         return JSONResponse({})
     else:
         return JSONError("Token did not match user.")
