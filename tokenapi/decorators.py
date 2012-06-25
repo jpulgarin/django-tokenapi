@@ -2,7 +2,7 @@ from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 
-try: 
+try:
     from functools import wraps
 except ImportError:
     from django.utils.functional import wraps # Python 2.4 fallback

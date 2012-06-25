@@ -12,11 +12,11 @@ class TokenBackend(ModelBackend):
             return None
 
         TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
-        
+
         if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
             return None
-                
-        if token_generator.check_token(user, 
-            token): 
+
+        if token_generator.check_token(user,
+            token):
             return user
         return None
