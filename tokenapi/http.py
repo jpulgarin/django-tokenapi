@@ -6,8 +6,7 @@ except ImportError:
 
 from django.http import HttpResponse
 
-
-def JSONResponse(data, dump=True):
+def JsonResponse(data, dump=True):
     try:
         data['errors']
     except KeyError:
@@ -20,9 +19,13 @@ def JSONResponse(data, dump=True):
         mimetype='application/json',
     )
 
-def JSONError(error_string):
+def JsonError(error_string):
     data = {
         'success': False,
         'errors': error_string,
     }
     return JSONResponse(data)
+
+# For backwards compatability purposes
+JSONResponse = JsonResponse
+JSONError = JsonError

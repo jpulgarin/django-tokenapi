@@ -58,10 +58,10 @@ Usage
 ### Obtaining a Token
 
 You can obtain a token for a specific user by sending a POST request with a
-username and password parameter to the `api_token_new` view. 
+username and password parameter to the `api_token_new` view.
 Using [curl][], the request would look like:
 
-    curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json 
+    curl -d "username=jpulgarin&password=GGGGGG" http://www.yourdomain.com/token/new.json
 
 [curl]: http://curl.haxx.se/
 
@@ -73,17 +73,17 @@ An invalid username and password pair will produce a response like so:
 
     {"success": false, "errors": "Unable to log you in, please try again"}
 
-You should store the `user` and `token` that are returned on the client 
-accessing the API, as all subsequent calls will require that the request have 
+You should store the `user` and `token` that are returned on the client
+accessing the API, as all subsequent calls will require that the request have
 a valid token and user pair.
 
 ### Verifying a Token
 
 You can verify that a token matches a given user by sending a GET request
-to the `api_token` view, and sending the token and user as part of the URL. 
+to the `api_token` view, and sending the token and user as part of the URL.
 Using curl it would look like:
 
-    curl http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json 
+    curl http://www.yourdomain.com/token/2uy-420a8efff7f882afc20d/1.json
 
 If valid, you will receive the following JSON response:
 
@@ -91,13 +91,13 @@ If valid, you will receive the following JSON response:
 
 ### Writing API Compatible Views
 
-To allow a view to be accessed through token-based auth, use the 
-`tokenapi.decorators.token_required` decorator. There are also 
-JSON helper functions to make it easier to deal with JSON. 
+To allow a view to be accessed through token-based auth, use the
+`tokenapi.decorators.token_required` decorator. There are also
+JSON helper functions to make it easier to deal with JSON.
 This is an example of an API compatible view:
 
     from tokenapi.decorators import token_required
-    from tokenapi.http import JSONResponse, JSONError
+    from tokenapi.http import JsonResponse, JsonError
 
     @token_required
     def index(request):
@@ -106,13 +106,13 @@ This is an example of an API compatible view:
                 'test1': 49,
                 'test2': 'awesome',
             }
-            return JSONResponse(data)
+            return JsonResponse(data)
         else:
-            return JSONError("Only POST is allowed")
+            return JsonError("Only POST is allowed")
 
 ### Using a Token
 
-The client can access any API compatible view by sending a request to it, 
+The client can access any API compatible view by sending a request to it,
 and including `user` and `token` as request parameters (either GET or POST).
 Accessing the example view above using curl might look like:
 
