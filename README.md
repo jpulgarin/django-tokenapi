@@ -122,6 +122,19 @@ You would receive the following response:
 
     {"success": true, "test1": 49, "test2": "awesome"}
 
+
+Alternately, you can access any API compatible view by including the user and token in
+the Authorization header according to the
+[basic access authentication](http://en.wikipedia.org/wiki/Basic_access_authentication)
+scheme. To construct the Authorization header:
+
+	1. Combine user id and token into string "user:token"
+	2. Encode resulting string using Base64
+	3. Prepend "Basic " (including the trailing space) to the resulting Base64 encoded string
+	
+If, in the same request, you provide credentials via both request parameters and the
+Authorization header, the Authorization header will be used for authentication.
+
 Acknowledgements
 ----------------
 

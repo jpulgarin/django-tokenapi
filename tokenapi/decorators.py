@@ -19,7 +19,7 @@ def token_required(view_func):
             if auth_method.lower() == 'basic':
                 auth_string = auth_string.strip().decode('base64')
                 user, token = auth_string.split(':', 1)
-                
+
         if not (user and token):
             user = request.REQUEST.get('user')
             token = request.REQUEST.get('token')
