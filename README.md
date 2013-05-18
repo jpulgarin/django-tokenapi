@@ -112,6 +112,8 @@ This is an example of an API compatible view:
 
 ### Using a Token
 
+#### Request Parameters
+
 The client can access any API compatible view by sending a request to it,
 and including `user` and `token` as request parameters (either GET or POST).
 Accessing the example view above using curl might look like:
@@ -121,6 +123,8 @@ Accessing the example view above using curl might look like:
 You would receive the following response:
 
     {"success": true, "test1": 49, "test2": "awesome"}
+    
+#### Basic authentication
 
 
 Alternately, you can access any API compatible view by including the user and token in
