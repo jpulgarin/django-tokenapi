@@ -1,3 +1,5 @@
+# Run 'setup.py sdist register upload' to upload new version
+
 import os
 from setuptools import setup
 
@@ -6,7 +8,7 @@ def read(fname):
 
 setup(
     name='django-tokenapi',
-    version='0.1.6',
+    version='0.1.7',
     description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
     author='Julian Pulgarin',
