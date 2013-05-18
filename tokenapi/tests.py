@@ -1,7 +1,4 @@
-try:
-    import simplejson as json
-except ImportError:
-    import json
+import json
 
 from django.test import TestCase
 from django.contrib.auth.models import User
@@ -10,7 +7,6 @@ from django.core.urlresolvers import reverse
 from tokenapi.tokens import token_generator
 
 class TokenManagementTestCase(TestCase):
-    
     username = "jpulgarin"
     email = "jp@julianpulgarin.com"
     password = "GGGGGG"
@@ -78,6 +74,3 @@ class TokenManagementTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(data['success'])
         self.assertTrue(data['errors'])
-
-
-
