@@ -4,7 +4,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
 from tokenapi.tokens import token_generator
-from tokenapi.http import JSONResponse, JSONError
+from tokenapi.http import JSONResponse, JSONError, JSONResponseForbidden,
+                            JSONResponseNotFound, JSONResponseNotAllowed,
+                            JSONResponseBadRequest, JSONResponseNotAcceptable,
+                            JSONResponseUnauthorized
+
 
 # Creates a token if the correct username and password is given
 # token/new.json
@@ -23,7 +27,7 @@ def token_new(request):
                 TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
 
                 if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
-                    return JSONError("User account is disabled.")
+                    return JsonResponseForbidden("User account is disabled.")
 
                 data = {
                     'token': token_generator.make_token(user),
@@ -31,11 +35,11 @@ def token_new(request):
                 }
                 return JSONResponse(data)
             else:
-                return JSONError("Unable to log you in, please try again.")
+                return JSONResponseUnauthorized("Unable to log you in, please try again.")
         else:
-            return JSONError("Must include 'username' and 'password' as POST parameters.")
+            return JSONResponseNotAcceptable("Must include 'username' and 'password' as POST parameters.")
     else:
-        return JSONError("Must access via a POST request.")
+        return JSONResponseBadRequest("Must access via a POST request.")
 
 # Checks if a given token and user pair is valid
 # token/:token/:user.json
@@ -45,14 +49,14 @@ def token(request, token, user):
     try:
         user = User.objects.get(pk=user)
     except User.DoesNotExist:
-        return JSONError("User does not exist.")
+        return JSONResponseUnauthorized("User does not exist.")
 
     TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
 
     if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
-        return JSONError("User account is disabled.")
+        return JsonResponseForbidden("User account is disabled.")
 
     if token_generator.check_token(user, token):
         return JSONResponse({})
     else:
-        return JSONError("Token did not match user.")
+        return JSONResponseUnauthorized("Token did not match user.")
