@@ -21,7 +21,7 @@ def JsonResponse(data, dump=True, status=200):
     )
 
 
-def JsonError(error_string, status=400):
+def JsonError(error_string, status=200):
     data = {
         'success': False,
         'errors': error_string,
