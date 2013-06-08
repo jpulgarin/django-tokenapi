@@ -48,10 +48,13 @@ class TokenGenerator(object):
         ts_b36 = int_to_base36(timestamp)
 
         # No longer using last login time
-        import hashlib
-        hash = hashlib.sha1(settings.SECRET_KEY + unicode(user.id) +
-            user.password + 
-            unicode(timestamp)).hexdigest()[::2]
+        try:
+            import hashlib
+            sha1 = hashlib.sha1
+        except ImportError:
+            from django.utils.hashcompat import sha_constructor
+            sha1 = sha_constructor
+        hash = sha1(settings.SECRET_KEY + unicode(user.id) + user.password + unicode(timestamp)).hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
 
     def _num_days(self, dt):

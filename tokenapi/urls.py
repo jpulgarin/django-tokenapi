@@ -1,4 +1,7 @@
-from django.conf.urls import patterns, url
+try:
+    from django.conf.urls import patterns, url
+except:
+    from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('tokenapi.views',
     url(r'^token/new.json$', 'token_new', name='api_token_new'),
