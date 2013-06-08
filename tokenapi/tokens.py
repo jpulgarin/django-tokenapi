@@ -48,8 +48,8 @@ class TokenGenerator(object):
         ts_b36 = int_to_base36(timestamp)
 
         # No longer using last login time
-        from django.utils.hashcompat import sha_constructor
-        hash = sha_constructor(settings.SECRET_KEY + unicode(user.id) +
+        import hashlib
+        hash = hashlib.sha1(settings.SECRET_KEY + unicode(user.id) +
             user.password + 
             unicode(timestamp)).hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
