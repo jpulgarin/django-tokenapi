@@ -14,6 +14,11 @@ def token_required(view_func):
         token = None
         basic_auth = request.META.get('HTTP_AUTHORIZATION')
 
+        if request.user:
+            if request.user.is_authenticated():
+                # Already logged in, just return the result of the view
+                return view_func(request, *args, **kwargs)
+
         if basic_auth:
             auth_method, auth_string = basic_auth.split(' ', 1)
 
