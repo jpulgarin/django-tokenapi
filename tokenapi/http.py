@@ -16,7 +16,7 @@ def JsonResponse(data, dump=True):
 
     return HttpResponse(
         json.dumps(data) if dump else data,
-        mimetype='application/json',
+        content_type='application/json',
     )
 
 def JsonError(error_string):
