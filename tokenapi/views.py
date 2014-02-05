@@ -45,14 +45,14 @@ def token(request, token, user):
     try:
         user = User.objects.get(pk=user)
     except User.DoesNotExist:
-        return JSONError("User does not exist.")
+        return JsonError("User does not exist.")
 
     TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
 
     if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
-        return JSONError("User account is disabled.")
+        return JsonError("User account is disabled.")
 
     if token_generator.check_token(user, token):
-        return JSONResponse({})
+        return JsonResponse({})
     else:
-        return JSONError("Token did not match user.")
+        return JsonError("Token did not match user.")
