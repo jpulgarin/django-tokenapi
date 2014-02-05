@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
 from tokenapi.tokens import token_generator
-from tokenapi.http import JSONResponse, JSONError
+from tokenapi.http import JsonResponse, JsonError, JsonResponseForbidden, JsonResponseUnauthorized
 
 # Creates a token if the correct username and password is given
 # token/new.json
@@ -23,19 +23,19 @@ def token_new(request):
                 TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
 
                 if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
-                    return JSONError("User account is disabled.")
+                    return JsonResponseForbidden("User account is disabled.")
 
                 data = {
                     'token': token_generator.make_token(user),
                     'user': user.pk,
                 }
-                return JSONResponse(data)
+                return JsonResponse(data)
             else:
-                return JSONError("Unable to log you in, please try again.")
+                return JsonResponseUnauthorized("Unable to log you in, please try again.")
         else:
-            return JSONError("Must include 'username' and 'password' as POST parameters.")
+            return JsonError("Must include 'username' and 'password' as POST parameters.")
     else:
-        return JSONError("Must access via a POST request.")
+        return JsonError("Must access via a POST request.")
 
 # Checks if a given token and user pair is valid
 # token/:token/:user.json
