@@ -49,9 +49,9 @@ class TokenGenerator(object):
 
         # No longer using last login time
         from hashlib import sha1
-        hash = sha1(settings.SECRET_KEY + unicode(user.id) +
+        hash = sha1((settings.SECRET_KEY + str(user.id).encode('utf-8')) +
             user.password + 
-            unicode(timestamp)).hexdigest()[::2]
+            str(timestamp).encode('utf-8')).hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
 
     def _num_days(self, dt):
