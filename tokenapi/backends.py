@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from tokenapi.tokens import default_token_generator
+from tokenapi.tokens import token_generator
 from django.conf import settings
 
 try:
@@ -22,7 +22,7 @@ class TokenBackend(ModelBackend):
         if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
             return None
 
-        if default_token_generator.check_token(user,
+        if token_generator.check_token(user,
             token):
             return user
         return None
