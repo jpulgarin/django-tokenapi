@@ -25,6 +25,9 @@ def token_required(view_func):
             user = request.REQUEST.get('user')
             token = request.REQUEST.get('token')
 
+            if not user or not token:
+                return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
+
         if user and token:
             user = authenticate(pk=user, token=token)
             if user:
