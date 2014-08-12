@@ -9,7 +9,7 @@ except ImportError: # Django < 1.5
 else:
     User = get_user_model()
 
-from tokenapi.tokens import token_generator
+from tokenapi.tokens import default_token_generator
 from tokenapi.http import JsonResponse, JsonError, JsonResponseForbidden, JsonResponseUnauthorized
 
 
@@ -33,7 +33,7 @@ def token_new(request):
                     return JsonResponseForbidden("User account is disabled.")
 
                 data = {
-                    'token': token_generator.make_token(user),
+                    'token': default_token_generator.make_token(user),
                     'user': user.pk,
                 }
                 return JsonResponse(data)
@@ -59,7 +59,7 @@ def token(request, token, user):
     if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
         return JsonError("User account is disabled.")
 
-    if token_generator.check_token(user, token):
+    if default_token_generator.check_token(user, token):
         return JsonResponse({})
     else:
         return JsonError("Token did not match user.")

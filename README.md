@@ -13,6 +13,10 @@ If instead you are looking to open up an API to the public, you are better off
 going with a framework with OAuth support, of which there exist some really
 good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 
+Requirements
+------------
+* Django 1.5+
+
 Installation
 ------------
 
