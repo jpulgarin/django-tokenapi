@@ -3,6 +3,7 @@
 from datetime import date
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
+from django.utils import six
 
 class TokenGenerator(object):
     """
@@ -49,9 +50,9 @@ class TokenGenerator(object):
 
         # No longer using last login time
         from hashlib import sha1
-        hash = sha1(settings.SECRET_KEY + unicode(user.id) +
-            user.password + 
-            unicode(timestamp)).hexdigest()[::2]
+        value = sha1(settings.SECRET_KEY + six.text_type(user.id) +
+            user.password + six.text_type(timestamp))
+        hash = value.hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
 
     def _num_days(self, dt):
