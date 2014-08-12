@@ -49,13 +49,7 @@ class PasswordResetTokenGenerator(object):
         # base 36, this gives us a 3 digit string until about 2121
         ts_b36 = int_to_base36(timestamp)
 
-        # By hashing on the internal state of the user and using state
-        # that is sure to change (the password salt will change as soon as
-        # the password is set, at least for current Django auth, and
-        # last_login will also change), we produce a hash that will be
-        # invalid as soon as it is used.
-        # We limit the hash to 20 chars to keep URL short
-        key_salt = "django.contrib.auth.tokens.PasswordResetTokenGenerator"
+        key_salt = "tokenapi.tokens.PasswordResetTokenGenerator"
 
         value = (six.text_type(user.pk) + user.password + six.text_type(timestamp))
         hash = salted_hmac(key_salt, value).hexdigest()[::2]
