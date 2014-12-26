@@ -23,8 +23,9 @@ class DateTimeEncoder(json.JSONEncoder):
 
 
 def JsonResponse(data, dump=True, status=200):
-    if not "errors" in data:
-        data['success'] = True
+    try:
+        if not "errors" in data:
+            data['success'] = True
     except TypeError:
         pass
 
