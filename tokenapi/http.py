@@ -7,6 +7,7 @@ except ImportError:
     import json
 
 from django.http import HttpResponse
+import decimal
 
 
 class DateTimeEncoder(json.JSONEncoder):
