@@ -1,10 +1,8 @@
 
 
 """JSON helper functions"""
-try:
-    import simplejson as json
-except ImportError:
-    import json
+
+import json
 
 from django.http import HttpResponse
 from django.db.models.base import ModelState
@@ -13,15 +11,16 @@ import decimal
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
-       if hasattr(obj, 'isoformat'):
-           return obj.isoformat()
-       elif isinstance(obj, decimal.Decimal):
+        print "DateTimeEncoder"
+        print obj
+        if hasattr(obj, 'isoformat'):
+            return obj.isoformat()
+        elif isinstance(obj, decimal.Decimal):
            return float(obj)
-       elif isinstance(obj, ModelState):
+        elif isinstance(obj, ModelState):
            return None
-       else:
+        else:
            return json.JSONEncoder.default(self, obj)
-
 
 
 def JsonResponse(data, dump=True, status=200):
