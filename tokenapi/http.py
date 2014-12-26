@@ -7,6 +7,7 @@ except ImportError:
     import json
 
 from django.http import HttpResponse
+from django.db.models.base import ModelState
 import decimal
 
 
