@@ -1,3 +1,5 @@
+
+
 """JSON helper functions"""
 try:
     import simplejson as json
@@ -7,16 +9,27 @@ except ImportError:
 from django.http import HttpResponse
 
 
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+       if hasattr(obj, 'isoformat'):
+           return obj.isoformat()
+       elif isinstance(obj, decimal.Decimal):
+           return float(obj)
+       elif isinstance(obj, ModelState):
+           return None
+       else:
+           return json.JSONEncoder.default(self, obj)
+
+
+
 def JsonResponse(data, dump=True, status=200):
-    try:
-        data['errors']
-    except KeyError:
+    if not "errors" in data:
         data['success'] = True
     except TypeError:
         pass
 
     return HttpResponse(
-        json.dumps(data) if dump else data,
+        json.dumps(data, cls=DateTimeEncoder) if dump else data,
         content_type='application/json',
         status=status,
     )
