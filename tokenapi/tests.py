@@ -81,3 +81,13 @@ class TokenManagementTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(data['success'])
         self.assertTrue(data['errors'])
+
+    def test_token_json(self):
+        json_str = json.dumps({'token': self.token, 'user': self.user.pk})
+        response = self.client.post(reverse('validate_json'), data = json_str, content_type='application/json', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        data = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(data['success'])
+

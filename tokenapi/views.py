@@ -63,3 +63,17 @@ def token(request, token, user):
         return JsonResponse({})
     else:
         return JsonError("Token did not match user.")
+
+# Checks if a given token and user pair is valid
+# token/validate.json
+# Required: request
+# Returns: success
+def validate_json(request):
+    try:
+        import json
+        body = json.loads(request.body)
+        user = body.get('user')
+        user_token = body.get('token')
+    except User.DoesNotExist:
+        return JsonError("Not a json request.")
+    return token(request, user_token, user)

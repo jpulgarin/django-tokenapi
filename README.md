@@ -127,6 +127,18 @@ Accessing the example view above using curl might look like:
 You would receive the following response:
 
     {"success": true, "test1": 49, "test2": "awesome"}
+
+##### Json Request
+
+Any API that accepts json input can include `user` and `token` in the json body (either GET or POST).
+Accessing the example view above using curl might look like:
+
+    curl -d '{"user":"1", "token":"2uy-420a8efff7f882afc20d"}' http://www.yourdomain.com/index.json
+
+You would receive the following response:
+
+    {"success": true, "test1": 49, "test2": "awesome"}
+    
     
 #### Basic authentication
 
@@ -148,3 +160,4 @@ Acknowledgements
 
 The token generating code is from `django.contrib.auth.tokens`, but modified so
 that it does not hash on a user's last login.
+
