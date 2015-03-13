@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 from functools import wraps
 
@@ -25,8 +26,16 @@ def token_required(view_func):
             user = request.REQUEST.get('user')
             token = request.REQUEST.get('token')
 
-            if not user or not token:
-                return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
+        if not (user and token):
+            try:
+                body = json.loads(request.body)
+                user = body.get('user')
+                token = body.get('token')
+            except:
+                pass
+
+        if not user or not token:
+            return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
 
         if user and token:
             user = authenticate(pk=user, token=token)
