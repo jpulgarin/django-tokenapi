@@ -122,12 +122,12 @@ The client can access any API compatible view by sending a request to it,
 and including `user` and `token` as request parameters (either GET or POST).
 Accessing the example view above using curl might look like:
 
-    curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/index.json
+    curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/new.json
 
 You would receive the following response:
 
     {"success": true, "test1": 49, "test2": "awesome"}
-    
+
 #### Basic authentication
 
 
@@ -139,7 +139,7 @@ scheme. To construct the Authorization header:
 1. Combine user id and token into string "user:token"
 2. Encode resulting string using Base64
 3. Prepend "Basic " (including the trailing space) to the resulting Base64 encoded string
-	
+
 If, in the same request, you provide credentials via both request parameters and the
 Authorization header, the Authorization header will be used for authentication.
 
