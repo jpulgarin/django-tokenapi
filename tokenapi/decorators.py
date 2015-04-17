@@ -14,7 +14,10 @@ def token_required(view_func):
         token = None
         basic_auth = request.META.get('HTTP_AUTHORIZATION')
 
-        if basic_auth:
+        user = request.REQUEST.get('user')
+        token = request.REQUEST.get('token')
+
+        if not (user and token) and basic_auth:
             auth_method, auth_string = basic_auth.split(' ', 1)
 
             if auth_method.lower() == 'basic':
@@ -22,17 +25,12 @@ def token_required(view_func):
                 user, token = auth_string.split(':', 1)
 
         if not (user and token):
-            user = request.REQUEST.get('user')
-            token = request.REQUEST.get('token')
+            return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
 
-            if not user or not token:
-                return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
-
-        if user and token:
-            user = authenticate(pk=user, token=token)
-            if user:
-                login(request, user)
-                return view_func(request, *args, **kwargs)
+        user = authenticate(pk=user, token=token)
+        if user:
+            login(request, user)
+            return view_func(request, *args, **kwargs)
 
         return HttpResponseForbidden()
     return _wrapped_view
