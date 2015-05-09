@@ -31,10 +31,15 @@ def token_new(request):
 
                 if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
                     return JsonResponseForbidden("User account is disabled.")
-
+                
+                if type(user.pk) == int:
+                    user_pk = user.pk
+                else:
+                    user_pk = str(user.pk)
+                    
                 data = {
                     'token': token_generator.make_token(user),
-                    'user': user.pk,
+                    'user': user_pk,
                 }
                 return JsonResponse(data)
             else:
