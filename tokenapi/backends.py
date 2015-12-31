@@ -11,9 +11,9 @@ else:
 
 
 class TokenBackend(ModelBackend):
-    def authenticate(self, pk, token):
+    def authenticate(self, username, token):
         try:
-            user = User.objects.get(pk=pk)
+            user = User.objects.get(username=username)
         except User.DoesNotExist:
             return None
 

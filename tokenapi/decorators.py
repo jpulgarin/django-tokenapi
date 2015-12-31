@@ -27,7 +27,7 @@ def token_required(view_func):
         if not (user and token):
             return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
 
-        user = authenticate(pk=user, token=token)
+        user = authenticate(username=user, token=token)
         if user:
             login(request, user)
             return view_func(request, *args, **kwargs)
