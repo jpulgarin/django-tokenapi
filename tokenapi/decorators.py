@@ -24,7 +24,7 @@ def token_required(view_func):
 
             if auth_method.lower() == 'basic':
                 auth_string = b64decode(auth_string.strip())
-                user, token = auth_string.decode('utf-8').split(':', 1)
+                user, token = auth_string.decode().split(':', 1)
 
         if not (user and token):
             return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
