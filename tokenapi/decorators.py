@@ -2,6 +2,8 @@ from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
+from base64 import b64decode
+
 from functools import wraps
 
 def token_required(view_func):
@@ -21,8 +23,8 @@ def token_required(view_func):
             auth_method, auth_string = basic_auth.split(' ', 1)
 
             if auth_method.lower() == 'basic':
-                auth_string = auth_string.strip().decode('base64')
-                user, token = auth_string.split(':', 1)
+                auth_string = b64decode(auth_string.strip())
+                user, token = auth_string.decode('utf-8').split(':', 1)
 
         if not (user and token):
             return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
