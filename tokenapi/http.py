@@ -27,7 +27,7 @@ def JsonError(error_string, status=200):
         'success': False,
         'errors': error_string,
     }
-    return JSONResponse(data)
+    return JsonResponse(data, status=status)
 
 
 def JsonResponseBadRequest(error_string):
