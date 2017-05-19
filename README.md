@@ -45,7 +45,7 @@ Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 Include `tokenapi.urls` in your `urls.py`. It will look something like this:
 
     urlpatterns = patterns('',
-        (r'', include('tokenapi.urls')),
+        (r'token/$', include('tokenapi.urls')),
     )
 
 Configuration
