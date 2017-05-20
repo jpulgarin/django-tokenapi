@@ -56,7 +56,7 @@ class DjangoTokenApiTestCase(TestCase):
 
             data = json.loads(response.content.decode())
 
-            # A 401 is returned if the authenticate checks the is_active flag.
+            # A 401 is returned if the authenticate call checks the is_active flag.
             # a 403 is returned if we detect is_active=False after authentication
             # succeeds.
             self.assertIn(response.status_code, (401, 403))
