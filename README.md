@@ -16,6 +16,7 @@ good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 Requirements
 ------------
 * Django 1.5+
+* Python 2.7+
 
 Installation
 ------------
