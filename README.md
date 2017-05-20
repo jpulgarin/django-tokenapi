@@ -55,8 +55,6 @@ Configuration
 You can change the number of days that a token is valid for by setting
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
 
-If you User model has an `is_active` flag, the authentication logic will not allow inactive users to authenticate.
-
 Usage
 -----
 
@@ -77,6 +75,8 @@ If the request is successful, you will receive a JSON response like so:
 An invalid username and password pair will produce a response like so:
 
     {"success": false, "errors": "Unable to log you in, please try again"}
+
+Note that if you User model has an `is_active` flag, the authentication logic will not allow inactive users to obtain tokens or use them.
 
 You should store the `user` and `token` that are returned on the client
 accessing the API, as all subsequent calls will require that the request have
