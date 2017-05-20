@@ -1,8 +1,5 @@
 """JSON helper functions"""
-try:
-    import simplejson as json
-except ImportError:
-    import json
+import json
 
 from django.http import HttpResponse
 
@@ -52,8 +49,3 @@ def JsonResponseNotAllowed(error_string):
 
 def JsonResponseNotAcceptable(error_string):
     return JsonError(error_string, status=406)
-
-
-# For backwards compatability purposes
-JSONResponse = JsonResponse
-JSONError = JsonError

@@ -44,9 +44,9 @@ Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 
 Include `tokenapi.urls` in your `urls.py`. It will look something like this:
 
-    urlpatterns = patterns('',
-        (r'token/$', include('tokenapi.urls')),
-    )
+    urlpatterns = [
+        url(r'^token/', include('tokenapi.urls')),
+    ]
 
 Configuration
 -------------
@@ -54,7 +54,7 @@ Configuration
 You can change the number of days that a token is valid for by setting
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
 
-By default, the authentication logic will not check if the user's `is_active` flag is set to `True`. To only allow active users to authenticate set `TOKEN_CHECK_ACTIVE_USER` to `True` in `settings.py`.
+If you User model has an `is_active` flag, the authentication logic will not allow inactive users to authenticate.
 
 Usage
 -----
@@ -101,7 +101,7 @@ JSON helper functions to make it easier to deal with JSON.
 This is an example of an API compatible view:
 
     from tokenapi.decorators import token_required
-    from tokenapi.http import JsonResponse, JsonError
+    from tokenapi.http import JsonResponse, JsonError, JsonResponseBadRequest, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseNotFound, JsonResponseNotAllowed, JsonResponseNotAcceptable
 
     @token_required
     def index(request):

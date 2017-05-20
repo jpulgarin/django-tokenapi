@@ -1,28 +1,18 @@
 from django.contrib.auth.backends import ModelBackend
-from tokenapi.tokens import token_generator
-from django.conf import settings
+from django.contrib.auth import get_user_model
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError: # Django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+from tokenapi.tokens import token_generator
 
 
 class TokenBackend(ModelBackend):
     def authenticate(self, pk, token):
         try:
-            user = User.objects.get(pk=pk)
-        except User.DoesNotExist:
+            user = get_user_model().objects.get(pk=pk)
+        except get_user_model().DoesNotExist:
             return None
 
-        TOKEN_CHECK_ACTIVE_USER = getattr(settings, "TOKEN_CHECK_ACTIVE_USER", False)
-
-        if TOKEN_CHECK_ACTIVE_USER and not user.is_active:
-            return None
-
-        if token_generator.check_token(user,
-            token):
+        # Reject users with is_active=False. Custom user models that don't have
+        # that attribute are allowed.
+        is_active = getattr(user, 'is_active', None)
+        if (is_active or is_active is None) and token_generator.check_token(user, token):
             return user
-        return None
