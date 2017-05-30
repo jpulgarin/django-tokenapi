@@ -49,6 +49,15 @@ Include `tokenapi.urls` in your `urls.py`. It will look something like this:
         url(r'^token/', include('tokenapi.urls')),
     ]
 
+Or alternatively, if you want to set up custom urls you can import the `token_new` and `token_check` functions and specify the urls yourself.
+
+    from tokenapi.views import token_new, token_check
+
+    urlpatterns = [
+        url(r'^token_new.json', token_new),
+        url(r'^token_check.json', token_check),
+    ]
+
 Configuration
 -------------
 
@@ -93,6 +102,15 @@ Using curl it would look like:
 If valid, you will receive the following JSON response:
 
     {"success": true}
+
+If you set up custom urls using `token_check` you can verify the 
+tokens by sending the `user` and `token` in a POST or GET request.
+
+    curl -d "user=1&token=2uy-420a8efff7f882afc20d" http://www.yourdomain.com/token_check.json
+
+or
+
+    curl "http://www.yourdomain.com/token_check.json?user=1&token=2uy-420a8efff7f882afc20d"
 
 ### Writing API Compatible Views
 
