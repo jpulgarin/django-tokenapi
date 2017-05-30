@@ -1,19 +1,23 @@
+
+
 """JSON helper functions"""
 import json
 
 from django.http import HttpResponse
 
+from bson import json_util
+
+
 
 def JsonResponse(data, dump=True, status=200):
     try:
-        data['errors']
-    except KeyError:
-        data['success'] = True
+        if not "errors" in data:
+            data['success'] = True
     except TypeError:
         pass
 
     return HttpResponse(
-        json.dumps(data) if dump else data,
+        json.dumps(data, default=json_util.default) if dump else data,
         content_type='application/json',
         status=status,
     )
