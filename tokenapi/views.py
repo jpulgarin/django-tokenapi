@@ -54,10 +54,10 @@ def token_check(request):
             else:
                 return JsonError("Token did not match user.")
         else:
-            return JsonError("You did not specify 'token' and 'user'.")
+            return JsonError("Must include 'user' and 'token' parameters with request.")
     
     else:
-        return JsonError("Must include 'user' and 'token' parameters with request.")
+        return JsonError("Must access via a POST or GET request.")
 
 def token(request, token, user):
     if authenticate(pk=user, token=token) is not None:
