@@ -1,6 +1,7 @@
 """JSON helper functions"""
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 
 
@@ -13,7 +14,7 @@ def JsonResponse(data, dump=True, status=200):
         pass
 
     return HttpResponse(
-        json.dumps(data) if dump else data,
+        json.dumps(data, cls=DjangoJSONEncoder) if dump else data,
         content_type='application/json',
         status=status,
     )
