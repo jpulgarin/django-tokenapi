@@ -1,7 +1,7 @@
 from functools import wraps
 from base64 import b64decode
 
-from django.http import HttpResponseForbidden
+from tokenapi.http import JsonError, JsonResponseUnauthorized
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,12 +27,12 @@ def token_required(view_func):
                 user, token = auth_string.decode().split(':', 1)
 
         if not (user and token):
-            return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
+            return JsonError("Must include 'user' and 'token' parameters with request.")
 
         user = authenticate(pk=user, token=token)
         if user:
             request.user = user
             return view_func(request, *args, **kwargs)
 
-        return HttpResponseForbidden()
+        return JsonResponseUnauthorized("You are unauthorized to view this page.")
     return _wrapped_view
