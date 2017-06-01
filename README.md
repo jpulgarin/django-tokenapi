@@ -76,7 +76,7 @@ An invalid username and password pair will produce a response like so:
 
     {"success": false, "errors": "Unable to log you in, please try again"}
 
-Note that if you User model has an `is_active` flag, the authentication logic will not allow inactive users to obtain tokens or use them.
+Note that if you User model has an `is_active` flag, the authentication logic will not allow inactive users to obtain or use tokens.
 
 You should store the `user` and `token` that are returned on the client
 accessing the API, as all subsequent calls will require that the request have
@@ -142,7 +142,7 @@ scheme. To construct the Authorization header:
 3. Prepend "Basic " (including the trailing space) to the resulting Base64 encoded string
 
 If, in the same request, you provide credentials via both request parameters and the
-Authorization header, the Authorization header will be used for authentication.
+Authorization header, the request parameters will be used for authentication.
 
 Acknowledgements
 ----------------
