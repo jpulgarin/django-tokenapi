@@ -19,6 +19,11 @@ def JsonResponse(data, dump=True, status=200):
         status=status,
     )
 
+def JsonSuccess():
+    data = {
+        'success': True,
+    }
+    return JsonResponse(data, status=200)
 
 def JsonError(error_string, status=200):
     data = {
@@ -26,7 +31,6 @@ def JsonError(error_string, status=200):
         'errors': error_string,
     }
     return JsonResponse(data, status=status)
-
 
 def JsonResponseBadRequest(error_string):
     return JsonError(error_string, status=400)

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
 from tokenapi.tokens import token_generator
-from tokenapi.http import JsonResponse, JsonError, JsonResponseUnauthorized, JsonResponseForbidden
+from tokenapi.http import JsonResponse, JsonError, JsonResponseUnauthorized, JsonResponseForbidden, JsonSuccess
 
 
 @csrf_exempt
@@ -30,9 +30,37 @@ def token_new(request):
     else:
         return JsonError("Must access via a POST request.")
 
+@csrf_exempt
+def token_check(request):
+    if request.method == 'GET':
+        token = request.GET.get('token')
+        user = request.GET.get('user')
+        
+        if token is not None and user is not None:
+            if authenticate(pk=user, token=token) is not None:
+                return JsonSuccess()
+            else:
+                return JsonError("Token did not match user.")
+        else:
+            return JsonError("Must include 'user' and 'token' parameters with request.")
+    
+    elif request.method == 'POST':
+        token = request.POST.get('token')
+        user = request.POST.get('user')
+        
+        if token is not None and user is not None:
+            if authenticate(pk=user, token=token) is not None:
+                return JsonSuccess()
+            else:
+                return JsonError("Token did not match user.")
+        else:
+            return JsonError("Must include 'user' and 'token' parameters with request.")
+    
+    else:
+        return JsonError("Must access via a POST or GET request.")
 
 def token(request, token, user):
     if authenticate(pk=user, token=token) is not None:
-        return JsonResponse({})
+        return JsonSuccess()
     else:
         return JsonError("Token did not match user.")
