@@ -38,7 +38,7 @@ class DjangoTokenApiTestCase(TestCase):
 
         data = json.loads(response.content.decode())
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 405)
         self.assertFalse(data['success'])
         self.assertIn('errors', data)
         self.assertNotIn('user', data)
