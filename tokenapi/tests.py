@@ -104,7 +104,7 @@ class DjangoTokenApiTestCase(TestCase):
 
         data = json.loads(response.content.decode())
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
         self.assertFalse(data['success'])
         self.assertIn('errors', data)
 
@@ -115,7 +115,7 @@ class DjangoTokenApiTestCase(TestCase):
 
         data = json.loads(response.content.decode())
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
         self.assertFalse(data['success'])
         self.assertIn('errors', data)
 
@@ -128,6 +128,6 @@ class DjangoTokenApiTestCase(TestCase):
 
             data = json.loads(response.content.decode())
 
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 401)
             self.assertFalse(data['success'])
             self.assertIn('errors', data)

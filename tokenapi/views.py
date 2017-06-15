@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
 from tokenapi.tokens import token_generator
-from tokenapi.http import JsonResponse, JsonError, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseBadRequest, JsonResponseNotAllowed
+from tokenapi.http import JsonResponse, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseBadRequest, JsonResponseNotAllowed
 
 
 @csrf_exempt
@@ -35,4 +35,4 @@ def token(request, token, user):
     if authenticate(pk=user, token=token) is not None:
         return JsonResponse({})
     else:
-        return JsonError("Token did not match user.")
+        return JsonResponseUnauthorized("Token did not match user.")
