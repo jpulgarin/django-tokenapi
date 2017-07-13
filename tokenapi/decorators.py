@@ -1,5 +1,6 @@
 from functools import wraps
 from base64 import b64decode
+from binascii import Error as ErrorASCII
 
 from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate
@@ -22,9 +23,11 @@ def token_required(view_func):
         if not (user and token) and basic_auth:
             auth_method, auth_string = basic_auth.split(' ', 1)
 
-            if auth_method.lower() == 'basic':
-                auth_string = b64decode(auth_string.strip())
-                user, token = auth_string.decode().split(':', 1)
+                try:
+                    auth_string = b64decode(auth_string.strip())
+                    user, token = auth_string.decode().split(':', 1)
+                except ErrorASCII:
+                    return HttpResponseForbidden("Invalid 'user' and 'token' parameters")
 
         if not (user and token):
             return HttpResponseForbidden("Must include 'user' and 'token' parameters with request.")
