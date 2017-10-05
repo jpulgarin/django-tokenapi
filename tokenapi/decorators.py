@@ -24,8 +24,9 @@ def token_required(view_func):
             auth_method, auth_string = basic_auth.split(' ', 1)
 
                 try:
-                    auth_string = b64decode(auth_string.strip())
-                    user, token = auth_string.decode().split(':', 1)
+                    if auth_method.lower() == 'basic':
+                        auth_string = b64decode(auth_string.strip())
+                        user, token = auth_string.decode().split(':', 1)
                 except ErrorASCII:
                     return HttpResponseForbidden("Invalid 'user' and 'token' parameters")
 
