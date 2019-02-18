@@ -5,7 +5,7 @@ from tokenapi.tokens import token_generator
 
 
 class TokenBackend(ModelBackend):
-    def authenticate(self, pk, token):
+    def authenticate(self, request, pk, token):
         try:
             user = get_user_model().objects.get(pk=pk)
         except get_user_model().DoesNotExist:
