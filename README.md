@@ -104,6 +104,7 @@ This is an example of an API compatible view:
     from tokenapi.decorators import token_required
     from tokenapi.http import JsonResponse, JsonError, JsonResponseBadRequest, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseNotFound, JsonResponseNotAllowed, JsonResponseNotAcceptable
 
+
     @token_required
     def index(request):
         if request.method == 'POST':
