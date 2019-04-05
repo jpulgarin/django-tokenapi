@@ -12,7 +12,7 @@ setup(
     description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
     author='Julian Pulgarin',
-    author_email='jp@julianpulgarin.com',
+    author_email='julian@pulgarin.co',
     url='https://github.com/jpulgarin/django-tokenapi',
     packages=['tokenapi'],
     license='Apache License, Version 2.0',
