@@ -1,7 +1,6 @@
 from django.conf.urls import url
 
-from tokenapi.views import token
-from tokenapi.views import token_new
+from tokenapi.views import token, token_new
 
 
 urlpatterns = [

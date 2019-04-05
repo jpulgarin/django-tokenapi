@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 
 from tokenapi.tokens import token_generator
-from tokenapi.http import JsonResponse, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseBadRequest, JsonResponseNotAllowed
+from tokenapi.http import JsonResponse, JsonResponseUnauthorized, JsonResponseForbidden, JsonResponseNotAllowed
 
 
 @csrf_exempt
@@ -26,7 +26,7 @@ def token_new(request):
             else:
                 return JsonResponseUnauthorized("Unable to log you in, please try again.")
         else:
-            return JsonResponseBadRequest("Must include 'username' and 'password' as POST parameters.")
+            return JsonResponseUnauthorized("Must include 'username' and 'password' as POST parameters.")
     else:
         return JsonResponseNotAllowed("Must access via a POST request.")
 

@@ -1,8 +1,12 @@
 import json
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse, reverse_lazy
 
 from tokenapi.tokens import token_generator
 
@@ -43,6 +47,7 @@ class DjangoTokenApiTestCase(TestCase):
         self.assertIn('errors', data)
         self.assertNotIn('user', data)
         self.assertNotIn('token', data)
+
 
     def test_token_new_inactive_user(self):
         if hasattr(self.user, 'is_active'):
