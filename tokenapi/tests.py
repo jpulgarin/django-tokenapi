@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 try:
     from django.urls import reverse
 except ImportError:
-    from django.core.urlresolvers import reverse, reverse_lazy
+    from django.core.urlresolvers import reverse
 
 from tokenapi.tokens import token_generator
 
