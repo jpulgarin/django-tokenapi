@@ -13,6 +13,7 @@ setup(
     version='1.1',
     description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     author='Julian Pulgarin',
     author_email='julian@pulgarin.co',
     url='https://github.com/jpulgarin/django-tokenapi',
