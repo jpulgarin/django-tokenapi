@@ -48,7 +48,6 @@ class DjangoTokenApiTestCase(TestCase):
         self.assertNotIn('user', data)
         self.assertNotIn('token', data)
 
-
     def test_token_new_inactive_user(self):
         if hasattr(self.user, 'is_active'):
             self.user.is_active = False
