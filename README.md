@@ -1,5 +1,4 @@
-django-tokenapi
-================
+# django-tokenapi
 
 This is a Django application which allows you to create simple APIs
 that use token-based authentication. You can easily open up existing views
@@ -13,13 +12,12 @@ If instead you are looking to open up an API to the public, you are better off
 going with a framework with OAuth support, of which there exist some really
 good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 
-Requirements
-------------
+## Requirements
+
 * Django 1.9+
 * Python 2.7+
 
-Installation
-------------
+## Installation
 
 First obtain `tokenapi` package and place it somewhere on your `PYTHONPATH`, for example
 in your project directory (where settings.py is).
@@ -49,14 +47,12 @@ Include `tokenapi.urls` in your `urls.py`. It will look something like this:
         url(r'^token/', include('tokenapi.urls')),
     ]
 
-Configuration
--------------
+## Configuration
 
 You can change the number of days that a token is valid for by setting
 `TOKEN_TIMEOUT_DAYS` in `settings.py`. The default is `7`.
 
-Usage
------
+## Usage
 
 ### Obtaining a Token
 
@@ -132,7 +128,6 @@ You would receive the following response:
 
 #### Basic authentication
 
-
 Alternately, you can access any API compatible view by including the user and token in
 the Authorization header according to the
 [basic access authentication](http://en.wikipedia.org/wiki/Basic_access_authentication)
@@ -145,8 +140,7 @@ scheme. To construct the Authorization header:
 If, in the same request, you provide credentials via both request parameters and the
 Authorization header, the request parameters will be used for authentication.
 
-Acknowledgements
-----------------
+## Acknowledgements
 
 The token generating code is from `django.contrib.auth.tokens`, but modified so
 that it does not hash on a user's last login.
