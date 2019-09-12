@@ -1,4 +1,4 @@
-# Run 'setup.py sdist register upload' to upload new version
+# Run 'twine upload dist/*' to upload new version
 
 import os
 from setuptools import setup
