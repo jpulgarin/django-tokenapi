@@ -18,6 +18,7 @@ setup(
     author_email='julian@pulgarin.co',
     url='https://github.com/jpulgarin/django-tokenapi',
     packages=['tokenapi'],
+    install_requires=['six'],
     license='Apache License, Version 2.0',
     classifiers=[
         "Programming Language :: Python :: 2.7",
