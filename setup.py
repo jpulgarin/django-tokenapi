@@ -1,4 +1,4 @@
-# Run 'twine upload dist/*' to upload new version
+# Run 'python setup.py sdist bdist_wheel && twine upload dist/*' to upload new version
 
 import os
 from setuptools import setup
