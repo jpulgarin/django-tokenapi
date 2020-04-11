@@ -1,10 +1,10 @@
 """django.contrib.auth.tokens, but without using last_login in hash"""
 
+import six
 from datetime import date
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
 from django.utils.crypto import constant_time_compare, salted_hmac
-from django.utils import six
 
 
 class PasswordResetTokenGenerator(object):
