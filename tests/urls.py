@@ -1,5 +1,6 @@
-from django.conf.urls import include, url
+from django.conf.urls import include
+from django.urls import re_path
 
 urlpatterns = [
-    url(r'^token/', include('tokenapi.urls')),
+    re_path(r'^token/', include('tokenapi.urls')),
 ]
