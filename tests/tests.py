@@ -3,10 +3,7 @@ import json
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from tokenapi.tokens import token_generator
 
