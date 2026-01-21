@@ -9,14 +9,13 @@ def read(fname):
 
 
 setup(
-    name='django-tokenapi2',
+    name='django-tokenapi',
     version='2.1',
-    description='A fork from Julian Pulgarin django-tokenapi with Django 4+ support.',
+    description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
-    author='Stanislas Guerra',
-    author_email='stan@slashdev.fr',
-    url='https://github.com/Starou/django-tokenapi',
+    author='Julián Pulgarín',
+    url='https://github.com/jpulgarin/django-tokenapi',
     packages=['tokenapi'],
     install_requires=['six'],
     license='Apache License, Version 2.0',
