@@ -1,3 +1,4 @@
+import base64
 import json
 
 from django.test import TestCase
@@ -156,7 +157,6 @@ class DjangoTokenApiTestCase(TestCase):
         self.assertFalse(data['success'])
 
     def test_basic_auth_missing_colon(self):
-        import base64
         # "useronly" encoded in base64, no colon
         encoded = base64.b64encode(b'useronly').decode()
         response = self.client.get(
@@ -168,3 +168,86 @@ class DjangoTokenApiTestCase(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertFalse(data['success'])
+
+    def test_basic_auth_valid(self):
+        # Valid Basic auth with user:token
+        credentials = f'{self.user.pk}:{self.token}'.encode()
+        encoded = base64.b64encode(credentials).decode()
+        response = self.client.get(
+            reverse('test_view'),
+            HTTP_AUTHORIZATION=f'Basic {encoded}'
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['user_id'], self.user.pk)
+
+    def test_token_required_get_params(self):
+        response = self.client.get(
+            reverse('test_view'),
+            {'user': self.user.pk, 'token': self.token}
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['user_id'], self.user.pk)
+
+    def test_token_required_post_params(self):
+        response = self.client.post(
+            reverse('test_view'),
+            {'user': self.user.pk, 'token': self.token}
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['user_id'], self.user.pk)
+
+    def test_token_required_missing_params(self):
+        response = self.client.get(reverse('test_view'))
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 401)
+        self.assertFalse(data['success'])
+
+    def test_token_new_missing_username(self):
+        response = self.client.post(reverse('api_token_new'), {
+            'password': self.password,
+        })
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 401)
+        self.assertFalse(data['success'])
+        self.assertIn('errors', data)
+
+    def test_token_new_missing_password(self):
+        response = self.client.post(reverse('api_token_new'), {
+            'username': self.username,
+        })
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 401)
+        self.assertFalse(data['success'])
+        self.assertIn('errors', data)
+
+    def test_non_basic_auth_method(self):
+        # Bearer auth should be ignored, falls back to checking GET/POST params
+        response = self.client.get(
+            reverse('test_view'),
+            {'user': self.user.pk, 'token': self.token},
+            HTTP_AUTHORIZATION='Bearer sometoken'
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(data['success'])
+        self.assertEqual(data['user_id'], self.user.pk)
