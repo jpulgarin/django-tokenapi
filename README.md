@@ -139,6 +139,13 @@ scheme. To construct the Authorization header:
 If, in the same request, you provide credentials via both request parameters and the
 Authorization header, the request parameters will be used for authentication.
 
+## Security
+
+The token endpoint accepts username and password credentials. To protect against
+brute force attacks, you should implement rate limiting at your web server,
+reverse proxy, or with a package like
+[django-ratelimit](https://django-ratelimit.readthedocs.io/).
+
 ## Acknowledgements
 
 The token generating code is from `django.contrib.auth.tokens`, but modified so
