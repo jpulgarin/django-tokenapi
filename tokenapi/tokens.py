@@ -53,7 +53,7 @@ class PasswordResetTokenGenerator(object):
 
         value = str(user.pk) + user.password + str(timestamp)
         hash = salted_hmac(key_salt, value).hexdigest()[::2]
-        return "%s-%s" % (ts_b36, hash)
+        return f"{ts_b36}-{hash}"
 
     def _num_days(self, dt):
         return (dt - date(2001, 1, 1)).days
