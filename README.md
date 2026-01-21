@@ -9,8 +9,8 @@ connect to your Django website, but where only your clients are expected to
 access the API.
 
 If instead you are looking to open up an API to the public, you are better off
-going with a framework with OAuth support, of which there exist some really
-good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
+going with a framework with OAuth support, such as
+[Django OAuth Toolkit](https://django-oauth-toolkit.readthedocs.io/).
 
 ## Requirements
 
@@ -32,7 +32,7 @@ regular installation or use [pip][]:
     pip install django-tokenapi
 
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
-[pip]: http://pip.openplans.org/
+[pip]: https://pip.pypa.io/
 
 Add `tokenapi` to your `INSTALLED_APPS`.
 
