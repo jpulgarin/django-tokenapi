@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
 
     tokenapi.vm.provision "pip3-install", type: :shell, privileged: false, inline: <<-SHELL
       source ~/venv_py3/bin/activate
-      pip3 install django==4.0.10 six
+      pip3 install django==4.0.10
     SHELL
 
     tokenapi.vm.provision "bashrc", type: :shell, privileged: false, inline: <<-SHELL

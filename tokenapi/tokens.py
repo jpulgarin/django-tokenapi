@@ -2,7 +2,6 @@
 
 from datetime import date
 
-import six
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
 from django.utils.crypto import constant_time_compare, salted_hmac
@@ -52,7 +51,7 @@ class PasswordResetTokenGenerator(object):
 
         key_salt = "tokenapi.tokens.PasswordResetTokenGenerator"
 
-        value = (six.text_type(user.pk) + user.password + six.text_type(timestamp))
+        value = str(user.pk) + user.password + str(timestamp)
         hash = salted_hmac(key_salt, value).hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
 
