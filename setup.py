@@ -14,7 +14,7 @@ setup(
     description='Add an API to your Django app using token-based authentication.',
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
-    author='Julián Pulgarín',
+    author='Julian Pulgarín',
     url='https://github.com/jpulgarin/django-tokenapi',
     packages=['tokenapi'],
     install_requires=['Django>=2.0'],
