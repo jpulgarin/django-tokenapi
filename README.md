@@ -14,8 +14,7 @@ good [implementations](https://bitbucket.org/jespern/django-piston/wiki/Home).
 
 ## Requirements
 
-* Django 1.9+
-* Python 2.7 or 3+
+* Django 2.0+
 
 ## Installation
 
@@ -44,7 +43,7 @@ Add `tokenapi.backends.TokenBackend` to your `AUTHENTICATION_BACKENDS`.
 Include `tokenapi.urls` in your `urls.py`. It will look something like this:
 
     urlpatterns = [
-        url(r'^token/', include('tokenapi.urls')),
+        path('token/', include('tokenapi.urls')),
     ]
 
 ## Configuration
