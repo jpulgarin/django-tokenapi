@@ -11,14 +11,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9]
-        django-version: [3.2.25, 4.2.13]
+        python-version: ['3.8', '3.10', '3.12']
+        django-version: ['3.2', '4.2', '5.0']
+        exclude:
+          - python-version: '3.8'
+            django-version: '5.0'
+          - python-version: '3.12'
+            django-version: '3.2'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
 
