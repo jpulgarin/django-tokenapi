@@ -132,3 +132,39 @@ class DjangoTokenApiTestCase(TestCase):
             self.assertEqual(response.status_code, 401)
             self.assertFalse(data['success'])
             self.assertIn('errors', data)
+
+    def test_basic_auth_missing_space(self):
+        response = self.client.get(
+            reverse('test_view'),
+            HTTP_AUTHORIZATION='Basic'
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(data['success'])
+
+    def test_basic_auth_invalid_base64(self):
+        response = self.client.get(
+            reverse('test_view'),
+            HTTP_AUTHORIZATION='Basic !!!notbase64!!!'
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(data['success'])
+
+    def test_basic_auth_missing_colon(self):
+        import base64
+        # "useronly" encoded in base64, no colon
+        encoded = base64.b64encode(b'useronly').decode()
+        response = self.client.get(
+            reverse('test_view'),
+            HTTP_AUTHORIZATION=f'Basic {encoded}'
+        )
+
+        data = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(data['success'])
